@@ -1,4 +1,5 @@
-package com.harshu1;
+
+// package com.harshu1;
 import java.util.*;
 import javax.imageio.ImageIO;
 import java.util.Timer;
@@ -36,7 +37,7 @@ class Game extends JPanel {
 
         addKeyListener(new KeyListener());
         setFocusable(true);
-        setBackground(new Color(130, 205, 71));
+        setBackground(new Color(186,116,235));
         setDoubleBuffered(true);
 
         snake = new Snake(WIDTH / 2, HEIGHT / 2);
@@ -78,7 +79,7 @@ class Game extends JPanel {
     }
 
     private void setStatus(GameStatus newStatus) {
-        switch(newStatus) {
+        switch (newStatus) {
             case RUNNING:
                 timer = new Timer();
                 timer.schedule(new GameLoop(), 0, DELAY);
@@ -108,7 +109,7 @@ class Game extends JPanel {
 
         boolean ateItself = false;
 
-        for(Point t : snake.getTail()) {
+        for (Point t : snake.getTail()) {
             ateItself = ateItself || head.equals(t);
         }
 
@@ -136,14 +137,17 @@ class Game extends JPanel {
             drawCenteredString(g2d, "SNAKE", FONT_XL, 200);
             drawCenteredString(g2d, "GAME", FONT_XL, 300);
             drawCenteredString(g2d, "Press  any  key  to  begin", FONT_M_ITALIC, 330);
+            g2d.setColor(Color.CYAN);
+            drawCenteredString(g2d, "Developed by Mr. Harshit Pachauri", FONT_M, 380);
+            drawCenteredString(g2d, " & Madhav Pandit", FONT_M, 415);
 
             return;
         }
 
         Point p = snake.getHead();
 
-        g2d.drawString("SCORE: " + String.format ("%02d", points), 20, 30);
-        g2d.drawString("BEST: " + String.format ("%02d", best), 630, 30);
+        g2d.drawString("SCORE: " + String.format("%02d", points), 20, 30);
+        g2d.drawString("BEST: " + String.format("%02d", best), 630, 30);
 
         if (cherry != null) {
             if (didLoadCherryImage) {
@@ -167,7 +171,7 @@ class Game extends JPanel {
         g2d.setColor(new Color(33, 70, 199));
         g2d.fillRect(p.getX(), p.getY(), 10, 10);
 
-        for(int i = 0, size = snake.getTail().size(); i < size; i++) {
+        for (int i = 0, size = snake.getTail().size(); i < size; i++) {
             Point t = snake.getTail().get(i);
 
             g2d.fillRect(t.getX(), t.getY(), 10, 10);
@@ -191,11 +195,19 @@ class Game extends JPanel {
             int key = e.getKeyCode();
 
             if (status == GameStatus.RUNNING) {
-                switch(key) {
-                    case KeyEvent.VK_LEFT: snake.turn(Direction.LEFT); break;
-                    case KeyEvent.VK_RIGHT: snake.turn(Direction.RIGHT); break;
-                    case KeyEvent.VK_UP: snake.turn(Direction.UP); break;
-                    case KeyEvent.VK_DOWN: snake.turn(Direction.DOWN); break;
+                switch (key) {
+                    case KeyEvent.VK_LEFT:
+                        snake.turn(Direction.LEFT);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        snake.turn(Direction.RIGHT);
+                        break;
+                    case KeyEvent.VK_UP:
+                        snake.turn(Direction.UP);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        snake.turn(Direction.DOWN);
+                        break;
                 }
             }
 
@@ -221,9 +233,7 @@ class Game extends JPanel {
     }
 }
 
-
-enum GameStatus
-{
+enum GameStatus {
     NOT_STARTED, RUNNING, PAUSED, GAME_OVER
 }
 
@@ -240,7 +250,6 @@ enum Direction {
     }
 }
 
-
 class Point {
     private int x;
     private int y;
@@ -256,11 +265,19 @@ class Point {
     }
 
     public void move(Direction d, int value) {
-        switch(d) {
-            case UP: this.y -= value; break;
-            case DOWN: this.y += value; break;
-            case RIGHT: this.x += value; break;
-            case LEFT: this.x -= value; break;
+        switch (d) {
+            case UP:
+                this.y -= value;
+                break;
+            case DOWN:
+                this.y += value;
+                break;
+            case RIGHT:
+                this.x += value;
+                break;
+            case LEFT:
+                this.x -= value;
+                break;
         }
     }
 
